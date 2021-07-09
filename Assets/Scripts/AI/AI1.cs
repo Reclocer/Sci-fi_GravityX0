@@ -153,9 +153,27 @@ namespace Corebin.GravityX0.AI
                 {
                     zero = 0;
                     iks++;
-
-                    //если 3 подряд одинаковые не Fill и после них есть ячейки
-                    if (iks == 3 && x + 1 < 6)
+                                        
+                    //если 1 ячейка занята х далее идет свободная затем 2 х (x xx)
+                    if (iks == 1 
+                     && _cells[x + 1, y].Fill == Fill.Empty
+                     && _cells[x + 2, y].Fill == Fill.Iks
+                     && _cells[x + 3, y].Fill == Fill.Iks
+                     && _cells[x + 1, y - 1].Fill != Fill.Empty)
+                    {
+                        NeedCloseColumn(x + 1);
+                        return true;
+                    }//если 2 ячейка занята х далее идет свободная затем еще 1 х (хх х)
+                    else if  (iks == 1
+                           && _cells[x + 1, y].Fill == Fill.Iks
+                           && _cells[x + 2, y].Fill == Fill.Empty
+                           && _cells[x + 3, y].Fill == Fill.Iks
+                           && _cells[x + 2, y - 1].Fill != Fill.Empty)
+                    {
+                        NeedCloseColumn(x + 2);
+                        return true;
+                    }//если 3 подряд одинаковые не Fill и после них есть ячейки (xxx )
+                    else if (iks == 3 && x + 1 < 6)
                     {
                         //если после трех одинаковых ячеек, следует свободная ячейка 
                         if (_cells[x + 1, y].Fill == Fill.Empty
@@ -176,7 +194,7 @@ namespace Corebin.GravityX0.AI
 
                 for (int g = 0; g < 3; g++)
                 {
-                    //если 3 подряд zero
+                    //если 3 подряд zero ( 000)
                     if (_cells[x + 1 + g, y].Fill == Fill.Zero)
                     {
                         zerog++;
@@ -187,7 +205,7 @@ namespace Corebin.GravityX0.AI
                             return true;
                         }
 
-                    }//если 3 подряд икс
+                    }//если 3 подряд икс ( xxx)
                     else if (_cells[x + 1 + g, y].Fill == Fill.Iks)
                     {
                         iksg++;

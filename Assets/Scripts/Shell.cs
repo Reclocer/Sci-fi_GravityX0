@@ -13,7 +13,7 @@ namespace Corebin.GravityX0
 
         private void Start()
         {
-            Invoke("Bang", 0.4f);
+            Invoke(nameof(Bang), 0.4f);
         }
 
         private void Bang()

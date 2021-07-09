@@ -12,7 +12,7 @@ namespace Corebin.GravityX0
         Zero
     }    
 
-    public class GridColumn: MonoBehaviour
+    public class GridColumn
     {
         private int _nextEmptyCell = 0;
         public int NextEmptyCell => _nextEmptyCell;
