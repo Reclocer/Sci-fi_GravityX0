@@ -62,12 +62,14 @@ namespace Corebin.GravityX0
             if (_selectedTile == null)
             {
                 _selectedTile = SelectTile(SideNow);
-                UpTileToStartPosition(_selectedTile, columnNumber);
+                //UpTileToStartPosition(_selectedTile, columnNumber);
+                _selectedTile.MoveTo(_board.TilesStartPositions[columnNumber]);
                 _selectedColumn = columnNumber;
             }
             else if (_selectedColumn != columnNumber)
             {
-                UpTileToStartPosition(_selectedTile, columnNumber);
+                //UpTileToStartPosition(_selectedTile, columnNumber);
+                _selectedTile.MoveTo(_board.TilesStartPositions[columnNumber]);
                 _selectedColumn = columnNumber;
             }
             else if (!_board.CheckColumnIsFull(columnNumber))
