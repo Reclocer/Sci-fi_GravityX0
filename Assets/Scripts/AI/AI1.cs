@@ -153,13 +153,15 @@ namespace Corebin.GravityX0.AI
                 {
                     zero = 0;
                     iks++;
-                                        
+
+                    Debug.Log(x + 3);
+
                     //если 1 ячейка занята х далее идет свободная затем 2 х (x xx)
-                    if (iks == 1 
+                    if (iks == 1
                      && _cells[x + 1, y].Fill == Fill.Empty
-                     && _cells[x + 2, y].Fill == Fill.Iks
-                     && _cells[x + 3, y].Fill == Fill.Iks
-                     && _cells[x + 1, y - 1].Fill != Fill.Empty)
+                     && _cells[x + 2, y].Fill == Fill.Iks) 
+                     //&& _cells[x + 3, y].Fill == Fill.Iks)
+                     //&& _cells[x + 1, y - 1].Fill != Fill.Empty)
                     {
                         NeedCloseColumn(x + 1);
                         return true;
@@ -167,8 +169,8 @@ namespace Corebin.GravityX0.AI
                     else if  (iks == 1
                            && _cells[x + 1, y].Fill == Fill.Iks
                            && _cells[x + 2, y].Fill == Fill.Empty
-                           && _cells[x + 3, y].Fill == Fill.Iks
-                           && _cells[x + 2, y - 1].Fill != Fill.Empty)
+                           && _cells[x + 3, y].Fill == Fill.Iks)
+                           //&& _cells[x + 2, y - 1].Fill != Fill.Empty)
                     {
                         NeedCloseColumn(x + 2);
                         return true;
