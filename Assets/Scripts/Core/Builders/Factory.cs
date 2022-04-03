@@ -20,7 +20,7 @@ namespace Corebin.Core.Builders
             }
 
 #if UNITY_EDITOR
-            Debug.LogWarning("Factory cant create object. Please add object to 'Objects' ");
+            Debug.LogError("Factory cant create object. Please add object to 'Objects' ");
 #endif
             return default;
         }
