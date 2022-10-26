@@ -9,6 +9,8 @@ namespace Corebin.GravityX0.AI
     public class AI1 : AIBase
     {   
         private List<int> _blockedColumns = new List<int>(6);
+        private int _selectedColumnNum = 0;
+        private bool _columnIsSelected;
 
         public override void Do()
         {        
@@ -86,7 +88,7 @@ namespace Corebin.GravityX0.AI
                     int iks = 0;
                     int zero = 0;
 
-                    for (int x = 0; x < 6; x++)
+                    for (int x = 0; x < 5; x++)
                     {
                         //если первый ряд
                         if (y == 0)
@@ -108,20 +110,39 @@ namespace Corebin.GravityX0.AI
                 }
             }
             #endregion Проверка на 3 занятые подряд ячейки 
-             
-            bool done = false;
 
-            while (!done)
+            if (!_columnIsSelected)
             {
-                int column = Random.Range(0, 6);
+                SelectRandomColumn();
+            }
+            else
+            {
+                ClickOnSelectedColumn();
+            }
+        }
 
-                if (!_board.CheckColumnIsFull(column))
-                {
-                    ClickOnSelectedColumn(column);
-                    done = true;
-                    return;
-                }
-            }   
+        private void SelectRandomColumn()
+        {
+            int column = Random.Range(0, 6);
+
+            if (!_board.CheckColumnIsFull(column))
+            {
+                ClickOnSelectedColumn(column);
+                _columnIsSelected = true;
+                _selectedColumnNum = column;
+                return;
+            }
+            else
+            {
+                SelectRandomColumn();
+                Debug.Log("Change select");
+            }
+        }
+
+        private void ClickOnSelectedColumn()
+        {
+            ClickOnSelectedColumn(_selectedColumnNum);
+            _columnIsSelected = false;
         }
 
         private bool CheckHorizontal(int x, int y, ref int zero, ref int iks)
@@ -159,9 +180,9 @@ namespace Corebin.GravityX0.AI
                     //если 1 ячейка занята х далее идет свободная затем 2 х (x xx)
                     if (iks == 1
                      && _cells[x + 1, y].Fill == Fill.Empty
-                     && _cells[x + 2, y].Fill == Fill.Iks) 
-                     //&& _cells[x + 3, y].Fill == Fill.Iks)
-                     //&& _cells[x + 1, y - 1].Fill != Fill.Empty)
+                     && _cells[x + 2, y].Fill == Fill.Iks
+                     && _cells[x + 3, y].Fill == Fill.Iks
+                     && _cells[x + 1, y - 1].Fill != Fill.Empty)
                     {
                         NeedCloseColumn(x + 1);
                         return true;
@@ -169,8 +190,8 @@ namespace Corebin.GravityX0.AI
                     else if  (iks == 1
                            && _cells[x + 1, y].Fill == Fill.Iks
                            && _cells[x + 2, y].Fill == Fill.Empty
-                           && _cells[x + 3, y].Fill == Fill.Iks)
-                           //&& _cells[x + 2, y - 1].Fill != Fill.Empty)
+                           && _cells[x + 3, y].Fill == Fill.Iks
+                           && _cells[x + 2, y - 1].Fill != Fill.Empty)
                     {
                         NeedCloseColumn(x + 2);
                         return true;

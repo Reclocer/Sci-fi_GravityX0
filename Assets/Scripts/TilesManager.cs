@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using Corebin.GravityX0.AI;
 
@@ -97,19 +95,6 @@ namespace Corebin.GravityX0
                 {
                     _AI.Do();
                 }
-            }
-        }
-
-        private void UpTileToStartPosition(Tile tile, int columnNumber)
-        {
-            if (tile != null)
-            {
-                Rigidbody rigidbody = tile.GetComponent<Rigidbody>();
-                rigidbody.useGravity = false;
-                tile.MoveTo(_board.TilesStartPositions[columnNumber]);
-                rigidbody.angularVelocity = Vector3.zero;
-                rigidbody.velocity = Vector3.zero;
-                tile.transform.rotation = Quaternion.identity;
             }
         }
 

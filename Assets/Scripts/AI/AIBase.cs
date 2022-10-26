@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Corebin.GravityX0.AI
@@ -27,13 +24,53 @@ namespace Corebin.GravityX0.AI
 
         protected virtual void ClickOnSelectedColumn(int selectedColumnNumber)
         {
-            if (_canClick)
-            {
-                _columnsManager.Columns[selectedColumnNumber].OnPointerClick(new PointerEventData(EventSystem.current));
+            PointerButton button = new PointerButton();
 
-                _canClick = false;
-                StartCoroutine(this.DoAfterSeconds(() => { _canClick = true; }, _clickDelay));
+            switch (selectedColumnNumber)
+            {
+                case 0:
+                    button.Init(PointerKey.column0);
+                    break;
+
+                case 1:
+                    button.Init(PointerKey.column1);
+                    break;
+
+                case 2:
+                    button.Init(PointerKey.column2);
+                    break;
+
+                case 3:
+                    button.Init(PointerKey.column3);
+                    break;
+
+                case 4:
+                    button.Init(PointerKey.column4);
+                    break;
+
+                case 5:
+                    button.Init(PointerKey.column5);
+                    break;
             }
+
+            StartCoroutine(this.DoAfterSeconds(button.OnPointerClick, 1f));
+
+            //button.OnPointerClick();
+
+            //if (_canClick)
+            //{
+            //    _columnsManager.Columns[selectedColumnNumber].OnPointerClick(new PointerEventData(EventSystem.current));
+
+            //    _canClick = false;
+            //}
+            //else
+            //{
+            //    StartCoroutine(this.DoAfterSeconds(() => 
+            //    { 
+            //        _canClick = true;
+            //        ClickOnSelectedColumn(selectedColumnNumber);
+            //    }, _clickDelay));
+            //}
         }
     }
 }
